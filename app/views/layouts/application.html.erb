@@ -10,18 +10,28 @@
 
   <body>
 
-    <ul class="nav navbar-nav">
-      <% if user_signed_in? %>
-        <li>
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <i class="glyphicon"></i> <%= current_user.name %><b class="caret"></b>
-          </a>
-          <ul class="dropdown-menu">
-            <li><%= link_to 'Log Out', destroy_user_session_path, method: :delete %></li>
-          </ul>
-        </li>
-      <% end %>
-    </ul>
+        <nav class="navbar navbar-inverse">
+          <div class="container">
+            <div class="navbar-header">
+              <%= link_to 'FeedMe', root_path, class: 'navbar-brand' %>
+            </div>
+            <div id="navbar">
+              <ul class="nav navbar-nav">
+                <% if user_signed_in? %>
+                  <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      <i class="glyphicon"></i> <%= current_user.name %><b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><%= link_to 'Log Out', destroy_user_session_path, method: :delete %></li>
+                    </ul>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
 
     <div class="container">
       <% flash.each do |key, value| %>
@@ -33,18 +43,6 @@
       <%= yield %>
     </div>
 
-    <nav class="navbar navbar-inverse">
-      <div class="container">
-        <div class="navbar-header">
-          <%= link_to 'FeedMe', root_path, class: 'navbar-brand' %>
-        </div>
-        <div id="navbar">
-          <ul class="nav navbar-nav">
-
-          </ul>
-        </div>
-      </div>
-    </nav>
 
 
   </body>
