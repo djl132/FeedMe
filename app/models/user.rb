@@ -5,5 +5,12 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
          has_many :items
+         has_many :follows
+
+
+         def followed_by(user = nil)
+            user.follows.find_by(target_id: id)
+         end
+
 
 end
