@@ -23,15 +23,13 @@
 
 
                 <% if user_signed_in? %>
+                  <li><%= link_to 'My feed', feed_user_path(current_user) %></li>
+                  <li><%= link_to 'Log Out', destroy_user_session_path, method: :delete %></li>
+
                   <li>
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                       <i class="glyphicon"></i> <%= current_user.name %><b class="caret"></b>
                     </a>
-                    <ul class="dropdown-menu">
-                      <li><%= link_to 'My feed', feed_user_path(current_user) %></li>
-
-                      <li><%= link_to 'Log Out', destroy_user_session_path, method: :delete %></li>
-                    </ul>
                   </li>
 
                 <%else%>
