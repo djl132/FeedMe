@@ -8,9 +8,9 @@ class User < ApplicationRecord
          has_many :follows
 
 
-         def followed_by(user = nil)
-            user.follows.find_by(target_id: id)
-         end
+   def followed_by(user = nil)
+      user.follows.find_by(target_id: id)
+   end
 
 
 end
