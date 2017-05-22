@@ -7,8 +7,9 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @item = Item.create(item_params)
-    # @item.save
+    @item = Item.new(item_params)
+    @item.user_id = current_user.id
+    @item.save
     puts "#{Item.all}"
     flash[:success] = "Item created!"
     redirect_to root_path
