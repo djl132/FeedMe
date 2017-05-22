@@ -6,17 +6,5 @@ class Follow < ApplicationRecord
   validates :target_id, presence: true
   validates :user_id, presence: true
 
-  include StreamRails::Activity
-
-  as_activity
-
-  def activity_notify
-    [StreamRails.feed_manager.get_notification_feed(self.target_id)]
-  end
-
-  def activity_object
-    self.target
-  end
-
 
 end

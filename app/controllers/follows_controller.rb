@@ -5,20 +5,24 @@ class FollowsController < ApplicationController
     follow = Follow.new(follow_params)
     follow.user = current_user
     if follow.save && current_user.id != params[:target_id]
-      puts follow.user_id
-      puts follow.target_id
 
-      puts client
-      chris = client.feed('user', 'chris')
+      user_feed = client.feed('user', current_user.id)
+      target_feed = client.feed('user', follow.target_id)
+      puts "USER'S FEED: #{user_feed.inspect}"
+      puts "TARGET'S FEED: #{target_feed.inspect}"
 
+      activity_data = { :actor => current_user.id, :verb => 'follow', :object => follow.target_id}
 
+      # update user's own actibity feed
+      derek.add_activity(activity_data)
+      # update user's timeline feed to follow target's feed
+      derek.follow('user', follow.target_id)
+      puts derek.inspect
     end
     flash[:success] = 'Followed!'
     redirect_to users_path
   end
 
-  activity_data = { :actor => 'chris', :verb => 'add', :object => 'picture:10', :foreign_id => 'picture:10', :message => 'Cool bird.' }
-  chris.add_activity(activity_data);
 
   def destroy
     follow = Follow.find(params[:id])
