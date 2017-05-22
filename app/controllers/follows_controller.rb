@@ -7,11 +7,18 @@ class FollowsController < ApplicationController
     if follow.save && current_user.id != params[:target_id]
       puts follow.user_id
       puts follow.target_id
-      [StreamRails.feed_manager.follow_user(follow.user_id, follow.target_id)]
+
+      puts client
+      chris = client.feed('user', 'chris')
+
+
     end
     flash[:success] = 'Followed!'
     redirect_to users_path
   end
+
+  activity_data = { :actor => 'chris', :verb => 'add', :object => 'picture:10', :foreign_id => 'picture:10', :message => 'Cool bird.' }
+  chris.add_activity(activity_data);
 
   def destroy
     follow = Follow.find(params[:id])
