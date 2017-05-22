@@ -4,10 +4,10 @@ class FollowsController < ApplicationController
   def create
     follow = Follow.new(follow_params)
     follow.user = current_user
-    if follow.save
+    if follow.save && current_user.id != params[:target_id]
       puts follow.user_id
       puts follow.target_id
-      StreamRails.feed_manager.follow_user(follow.user_id, follow.target_id)
+      [StreamRails.feed_manager.follow_user(follow.user_id, follow.target_id)]
     end
     flash[:success] = 'Followed!'
     redirect_to users_path
@@ -17,7 +17,7 @@ class FollowsController < ApplicationController
     follow = Follow.find(params[:id])
     if follow.user_id == current_user.id
       follow.destroy!
-      StreamRails.feed_manager.unfollow_user(follow.user_id, follow.target_id)
+      [StreamRails.feed_manager.unfollow_user(follow.user_id, follow.target_id)]
     end
     flash[:success] = 'Unfollowed!'
     redirect_to users_path

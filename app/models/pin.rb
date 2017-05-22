@@ -2,11 +2,15 @@ class Pin < ApplicationRecord
   belongs_to :user
   belongs_to :item
 
-validates :item, presence: true, uniqueness: {scope: :user}
-validates :user, presence: true, uniqueness: {scope: :item}
+validates :item, presence: true
+validates :user, presence: true
 
 include StreamRails::Activity
 as_activity
+
+def activity_actor
+   self.user
+end
 
 def activity_object
   self.item

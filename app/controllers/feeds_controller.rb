@@ -13,11 +13,11 @@ class FeedsController < ApplicationController
     @activities = @enricher.enrich_activities(results)
   end
 
-  def flat
-    feed = StreamRails.feed_manager.get_news_feeds(current_user.id)[:flat]
-    results = feed.get['results']
-    @activities = @enricher.enrich_activities(results)
-  end
+  # def flat
+  #   feed = StreamRails.feed_manager.get_news_feeds(current_user.id)[:flat]
+  #   results = feed.get['results']
+  #   @activities = @enricher.enrich_activities(results)
+  # end
 
   private
 
