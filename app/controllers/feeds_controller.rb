@@ -4,13 +4,13 @@ class FeedsController < ApplicationController
 
   def user
     @user = User.find(params[:id])
-    feed = StreamRails.feed_manager.get_user_feed(@user.id)
-    puts "FEEDS: #{feed}"
+    user_feed = client.feed('user', @user.id)
+    results = user_feed.get()['results']
 
-    results = feed.get['results']
-    puts "FEEDS: #{results}"
+    puts "results: #{results.inspect}"
 
     @activities = @enricher.enrich_activities(results)
+    puts "THESE ARE ACTIVITIES: #{@activities.inspect}"
   end
 
   # def flat

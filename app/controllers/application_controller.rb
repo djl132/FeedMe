@@ -5,13 +5,19 @@ class ApplicationController < ActionController::Base
 
   require 'stream'
 
-  client = Stream::Client.new(
+  CLIENT = Stream::Client.new(
   ENV["STREAM_KEY"],
   ENV["STREAM_SECRET"],
   :location => 'us-east'
   )
 
-  pp "CLIENT IS WORKIGN: #{client.inspect}"
+  def client
+    CLIENT
+  end
+
+
+
+
 
   protected
 

@@ -7,4 +7,12 @@ class Follow < ApplicationRecord
   validates :user_id, presence: true
 
 
+  include StreamRails::Activity
+  as_activity
+
+  def activity_object
+    self.item
+  end
+
+
 end

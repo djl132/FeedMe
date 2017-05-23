@@ -1,20 +1,34 @@
 class PinsController < ApplicationController
   before_action :authenticate_user!
 
+  client = Stream::Client.new(
+  ENV["STREAM_KEY"],
+  ENV["STREAM_SECRET"],
+  :location => 'us-east'
+  )
   def create
     @pin = Pin.new(pin_params)
     @pin.user = current_user
-    @pin.save!
-    flash[:success] = "Pinned!"
-    redirect_to root_path
+    if @pin.save!
+      user_feed = client.feed('user', current_user.id)
+      activity_data = { :actor => current_user.id, :verb => 'pin', :object => @pin.item_id}
+      user_feed.add_activity(activity_data)
+      flash[:success] = "Pinned!"
+      redirect_to root_path
+    end
   end
 
   def destroy
     @pin = Pin.find(params[:id])
-    @pin.destroy
-    flash[:success] = "Unpinned!"
-    redirect_to root_path
+    if @pin.destroy
+      user_feed = client.feed('user', current_user.id)
+      user_feed.remove_activity(@pin.item_id, foreign_id=true)
+      flash[:success] = "Unpinned!"
+      redirect_to root_path
+    end
+      redirect_to root_path
   end
+
 
   private
 
