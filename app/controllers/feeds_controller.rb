@@ -4,20 +4,33 @@ class FeedsController < ApplicationController
 
   def user
     @user = User.find(params[:id])
-    user_feed = client.feed('user', @user.id)
-    results = user_feed.get()['results']
-
-    puts "results: #{results.inspect}"
-
+    feed = StreamRails.feed_manager.get_user_feed(@user.id)
+    results = feed.get['results']
+    pp results.inspect
     @activities = @enricher.enrich_activities(results)
-    pp "THESE ARE ACTIVITIES: #{@activities.inspect}"
+    pp "User Activities", @activities
   end
 
-  # def flat
-  #   feed = StreamRails.feed_manager.get_news_feeds(current_user.id)[:flat]
-  #   results = feed.get['results']
-  #   @activities = @enricher.enrich_activities(results)
-  # end
+
+  def flat
+    feed = StreamRails.feed_manager.get_news_feeds(current_user.id)[:flat]
+    results = feed.get['results']
+    @activities = @enricher.enrich_activities(results)
+    pp "Flat Timeline", @activities
+
+  end
+
+
+  def aggregated
+    feed = StreamRails.feed_manager.get_news_feeds(current_user.id)[:aggregated]
+    results = feed.get['results']
+    @activities = @enricher.enrich_aggregated_activities(results)
+    pp "Aggregated Timeline", @activities
+  end
+
+
+
+
 
   private
 
