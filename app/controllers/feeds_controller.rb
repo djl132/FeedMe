@@ -28,6 +28,14 @@ class FeedsController < ApplicationController
     pp "Aggregated Timeline", @activities
   end
 
+  def notification
+    feed = StreamRails.feed_manager.get_notification_feed(current_user.id)
+    results = feed.get['results']
+    @activities = @enricher.enrich_aggregated_activities(results)
+    pp "Notification Aggregated Timeline", @activities
+
+  end
+
 
 
 

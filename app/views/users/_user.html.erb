@@ -1,4 +1,4 @@
-<h3><%= link_to user.name, feed_me_path(user) %></h3>
+<h3><%= link_to user.name, feed_user_path(user) %></h3>
 
 <% if user.followed_by(current_user) %>
   <%= button_to "Unfollow", follow_path(user.followed_by(current_user)), method: :delete, :class => "btn btn-primary btn-sm btn-danger" %>
