@@ -1,11 +1,6 @@
 class PinsController < ApplicationController
   before_action :authenticate_user!
-
-  client = Stream::Client.new(
-  ENV["STREAM_KEY"],
-  ENV["STREAM_SECRET"],
-  :location => 'us-east'
-  )
+  
   def create
     @pin = Pin.new(pin_params)
     @pin.user = current_user
