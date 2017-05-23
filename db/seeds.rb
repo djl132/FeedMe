@@ -8,7 +8,7 @@
 
 
 
-5.times do
+1.times do
   item =  Item.new(title: "hi",
   message:" this is the body")
   item.save

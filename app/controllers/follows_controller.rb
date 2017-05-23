@@ -37,7 +37,7 @@ class FollowsController < ApplicationController
   end
 
 
-  
+
 
   private
 

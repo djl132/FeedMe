@@ -10,7 +10,7 @@ class FeedsController < ApplicationController
     puts "results: #{results.inspect}"
 
     @activities = @enricher.enrich_activities(results)
-    puts "THESE ARE ACTIVITIES: #{@activities.inspect}"
+    pp "THESE ARE ACTIVITIES: #{@activities.inspect}"
   end
 
   # def flat

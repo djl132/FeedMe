@@ -1,6 +1,6 @@
 class PinsController < ApplicationController
   before_action :authenticate_user!
-  
+
   def create
     @pin = Pin.new(pin_params)
     @pin.user = current_user
