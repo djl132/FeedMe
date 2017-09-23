@@ -1,4 +1,4 @@
-# README
+# What it is
 
 FeedMe is a small project I used to learn push notifications libraries like stream.io.
 FeedMe allows you to post things, follow other users, and pin posts. All such activity is recorded in flat feeds.
