@@ -1,24 +1,26 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+FeedMe is a small project I used to learn push notifications libraries like stream.io.
+FeedMe allows you to post things, follow other users, and pin posts. All such activity is recorded in flat feeds.
+And all following activity is recorded by notifications feed and aggregated feed. 
 
-Things you may want to cover:
+## Configuration
 
-* Ruby version
+``` bundle ```
 
-* System dependencies
+```rails db:migrate```
 
-* Configuration
+Use figaro gem to securely store streamio authenticaion information (keys and secrets), for example. 
 
-* Database creation
+```figar install```
 
-* Database initialization
+Terminal should look like this:
 
-* How to run the test suite
+```
+Dereks-MacBook-Pro:FeedMe DerekJLin$  figaro install
+      create  config/application.yml
+      append  .gitignore
+```
+Add keys into application.yml. 
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Done.
